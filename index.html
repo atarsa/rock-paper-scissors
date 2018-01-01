@@ -11,76 +11,111 @@
 </body>
 </html>
 <script>
+    game();
+    
     function computerPlay(){
         let selection = ["rock", "paper", "scissors"];
         let computerSelection = selection[Math.floor(Math.random()*selection.length)];
         return computerSelection;
     }
     
+    function userPlay(){
+        let playerSelection = prompt("Rock, Paper, Scissors?");
+        playerSelection = playerSelection.toLowerCase();
+        
+        while (!( playerSelection == "rock" || playerSelection == "paper" || playerSelection == "scissors" )){
+            playerSelection = prompt("Rock, Paper, Scissors?");
+            playerSelection = playerSelection.toLowerCase();
+        }
+        return playerSelection;
+    
+    }
+    
    function playRound(playerSelection, computerSelection){
-       playerSelection = playerSelection.toLowerCase();
+             
        
        
-       
-       if (playerSelection == "rock"){
+       if (playerSelection === "rock"){
            
-            if (computerSelection == "rock"){
-                return "It's a draw!";
+            if (computerSelection === "rock"){
+                return "draw";
             }
-            else if (computerSelection == "paper"){
-                return "You Lose! Paper beats Rock";
+            else if (computerSelection === "paper"){
+                return "lose";
             }
             else {
-                return "You Win! Rock beats Scissors";
+                return "win";
             }
        }
        
        
-       if (playerSelection == "scissors"){
-           if (computerSelection == "rock"){
-                return "You Lose! Rock beats scissors";
+       if (playerSelection === "scissors"){
+           if (computerSelection === "rock"){
+                return "lose";
             }
-            else if (computerSelection == "paper"){
-                return "You Win! Scissors beats Paper";
+            else if (computerSelection === "paper"){
+                return "win";
             }
             else{
-                return "It's a draw!";
+                return "draw";
             }
         }
        
-        if (playerSelection == "paper"){
-            if (computerSelection == "rock"){
-                return "You Win! Paper beats Rock";
+        if (playerSelection === "paper"){
+            if (computerSelection === "rock"){
+                return "win";
             }
-            else if (computerSelection == "paper"){
-                return "It's a draw!";
+            else if (computerSelection === "paper"){
+                return "draw";
             }
             else{
-                return "You Lose! Scissors beats Paper";
+                return "lose";
             }
         }
    } 
     
     function game(){
-        let count = 0;
-        
-        let playerSelection = prompt("Rock, Paper, Scissors?");
-        playerSelection = playerSelection.toLowerCase();
-        let computerSelection = computerPlay();
-        
+            
+                
         let playerWins = 0;
         let compWins = 0;
         
         // 5 rounds
         for(let i = 0; i < 5; i++){
-            playRound(playerSelection,computerSelection)
+            
+            const playerSelection = userPlay();
+            
+            const computerSelection = computerPlay();
+            
+            let round = playRound(playerSelection,computerSelection);
+            
+            if (round === "win"){
+                playerWins++;
+                console.log(" ");
+                console.log("You win, "+ playerSelection + " beats " + computerSelection + ".");
+            } else if (round === "lose"){
+                compWins++;
+                console.log(" ");
+                console.log("You lose, "+ computerSelection + " beats " + playerSelection + ".");
+            } else{
+                console.log(" ");
+                console.log("It's a draw.")
+            }
+            
         }
         
-        
-        
-        
-        
-        
+        if (playerWins > compWins){
+            console.log(" ");
+            console.log("The result is: " + playerWins + " : " + compWins +". You're the winner!")
+        } else if (playerWins < compWins){
+            console.log(" ");
+            console.log("The result is: " + playerWins + " : " + compWins +". You lost!");
+        }
+        else{
+            console.log(" ");
+            console.log("The result is: " + playerWins + " : " + compWins +". It'a a tie!");
+        }
+         
     }
     
     
